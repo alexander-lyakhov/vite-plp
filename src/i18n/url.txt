@@ -1,0 +1,1 @@
+﻿https://vue-i18n-next.intlify.dev/api/general.html#path
