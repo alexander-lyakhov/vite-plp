@@ -43,9 +43,9 @@
 </script>
 
 <script setup lang="ts">
-  import { ref, computed, onMounted } from 'vue';
-  import { useI18n }                  from 'vue-i18n'
-  import PlpCartCounter               from './plp-cart-counter.vue'
+  import { ref, onMounted } from 'vue';
+  import { useI18n }        from 'vue-i18n'
+  import PlpCartCounter     from './plp-cart-counter.vue'
   
   const props = defineProps<{
     cart: Cart;
