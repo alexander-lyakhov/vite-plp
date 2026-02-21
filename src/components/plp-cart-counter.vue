@@ -1,8 +1,8 @@
 <template>
   <div class="counter" :class="{ selected: model > 0 }">
-    <button class="decrease" @click.stop="decrease" />
+    <button class="arrow decrease" @click.stop="decrease" />
     <div class="value" :class="{ maximum: model === max }" v-wheel="mouseWheelHandler">{{ model }}</div>
-    <button class="increase" @click.stop="increase" />
+    <button class="arrow increase" @click.stop="increase" />
   </div>
 </template>
 
@@ -53,16 +53,27 @@
 </script>
 
 <style lang="scss" scoped>
+
+$cart-counter-background:              #e0e0e0;
+$cart-counter-background--selected:    #ec9;
+$cart-counter-border-color:            #999;
+$cart-counter-arrow-color:             #404040;
+$cart-counter-value-text-color:        #000;
+$cart-counter-value-background:        #fff;
+$cart-counter-value-background--max:   #fee;
+$cart-counter-value-border-color:      #808080;
+$cart-counter-value-border-color--max: #f00;
+
 .counter {
-  background: #e0e0e0;
-  border: 1px solid #999;
+  background: $cart-counter-background;
+  border: 1px solid $cart-counter-border-color;
   height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
 
   &.selected {
-    background: #ec9;
+    background: $cart-counter-background--selected;
   }
 
   button {
@@ -84,18 +95,19 @@
 
     &.decrease {
       &:after {
-        border-left: 4px solid #404040;
-        border-top: 4px solid #404040;
+        border-left: 4px solid $cart-counter-arrow-color;
+        border-top: 4px solid $cart-counter-arrow-color;
         transform: rotate(-45deg);
       }
       &:hover {
         transform: translate(-4px);
       }
     }
+
     &.increase {
       &:after {
-        border-right: 4px solid #404040;
-        border-top: 4px solid #404040;
+        border-right: 4px solid $cart-counter-arrow-color;
+        border-top: 4px solid $cart-counter-arrow-color;
         transform: rotate(45deg);
       }
       &:hover {
@@ -106,10 +118,9 @@
 
   .value {
     font-size: 1rem;
-    color: #000;
-    background: #fff;
-    //box-shadow: 0 2px 4px rgba(0,0,0,0.25);
-    border: 1px solid #808080;
+    color: $cart-counter-value-text-color;
+    background: $cart-counter-value-background;
+    border: 1px solid $cart-counter-value-border-color;
     border-radius: 4px;
     width: 40%;
     height: 32px;
@@ -120,8 +131,8 @@
     cursor: n-resize;
 
     &.maximum {
-      background: #fee;
-      border: 1px solid #f00;
+      background: $cart-counter-value-background--max;
+      border: 1px solid $cart-counter-value-border-color--max;
     }
   }
 }
