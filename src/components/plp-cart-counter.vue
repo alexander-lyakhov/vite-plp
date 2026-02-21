@@ -1,7 +1,7 @@
-﻿<template>
+<template>
   <div class="counter" :class="{ selected: model > 0 }">
     <button class="decrease" @click.stop="decrease" />
-    <div class="value" :class="{ maximum: model === max }">{{ model }}</div>
+    <div class="value" :class="{ maximum: model === max }" v-wheel="mouseWheelHandler">{{ model }}</div>
     <button class="increase" @click.stop="increase" />
   </div>
 </template>
@@ -13,16 +13,42 @@
 
   const model = defineModel<number>({ required: true });
 
+  const vWheel = {
+    mounted: function(el: HTMLElement, binding: Record<string, any>) {
+      el.addEventListener('wheel', binding.value.bind(this));
+      el.addEventListener('DOMMouseScroll', binding.value.bind(this));
+    }
+  }
+  // ================================================================================
+  // @@@ [ M ] decrease
+  // ================================================================================
   function decrease() {
     if (model.value > 0) {
       model.value--;
     }
   }
 
+  // ================================================================================
+  // @@@ [ M ] increase
+  // ================================================================================
   function increase() {
     if (model.value < props.max) {
       model.value++;
     }
+  }
+
+  // ================================================================================
+  // @@@ [ M ] mouseWheelHandler
+  // ================================================================================
+  function mouseWheelHandler(e:WheelEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    var direction = e.deltaY || e.detail;
+
+    Math.abs(direction) === 120 ?
+      direction > 0 ? increase() : decrease():
+      direction < 0 ? increase() : decrease();
   }
 </script>
 
